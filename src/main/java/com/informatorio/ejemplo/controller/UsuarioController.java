@@ -34,20 +34,20 @@ public class UsuarioController {
         return usuarioRepository.findAll();
     }
 
-    @DeleteMapping(value = "api/usuario/{id}")
-    public void deleteUsuario(@PathVariable("id") Long id){
+    @DeleteMapping(value = "api/usuario/{usuario_id}")
+    public void deleteUsuario(@PathVariable("usuario_id") Long id){
         Usuario usuario = usuarioRepository.getById(id);
         usuarioRepository.delete(usuario);
     }
 
-    @PutMapping(value = "api/usuario/{id}")
-    public Usuario modifUsuario(@PathVariable("id") Long id, @RequestBody Usuario usuario){
+    @PutMapping(value = "api/usuario/{usuario_id}")
+    public Usuario modifUsuario(@PathVariable("usuario_id") Long id, @RequestBody Usuario usuario){
         Usuario user = usuarioRepository.getById(id);
         return modificarDatos(user, usuario);
     }
 
-    @PutMapping(value = "api/usuario/{id}/credencial")
-    public Usuario modifUsuarioCredenciales(@PathVariable("id") Long id, @RequestBody Usuario usuario){
+    @PutMapping(value = "api/usuario/{usuario_id}/credencial")
+    public Usuario modifUsuarioCredenciales(@PathVariable("usuario_id") Long id, @RequestBody Usuario usuario){
         Usuario user = usuarioRepository.getById(id);
         return modificarCredenciales(user, usuario);
     }

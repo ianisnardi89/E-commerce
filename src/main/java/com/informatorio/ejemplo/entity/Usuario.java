@@ -43,7 +43,7 @@ public class Usuario {
 
     @Column(nullable = false, updatable = false)
     @Temporal(TemporalType.DATE)
-    private Date fechaDeCreacion;
+    private Date fechaDeCreacion = usuarioService.creacion();
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "direccion_id", referencedColumnName = "id")
