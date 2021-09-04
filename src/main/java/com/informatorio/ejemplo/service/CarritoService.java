@@ -16,6 +16,8 @@ import com.informatorio.ejemplo.repository.ProductoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import static com.informatorio.ejemplo.service.DetalleService.*;
+
 @Service
 public class CarritoService {
     
@@ -35,8 +37,8 @@ public class CarritoService {
         return Date.from(LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant());
     }
 
-    public static Boolean nuevo_carrito(Usuario usuario){
-        List<Carrito> carritosDelUser = usuario.getCarritos();
+    public static Boolean nuevo_carrito(Usuario user){
+        List<Carrito> carritosDelUser = user.getCarritos();
         if(carritosDelUser.size() >= 1){
             Carrito ult = carritosDelUser.get(carritosDelUser.size() - 1);
             ult.setEstado(false);
@@ -61,8 +63,8 @@ public class CarritoService {
     public static Detalle evaluarAnadirProducto(Carrito carrito, Long id_producto){
         if(carrito.getEstado()){
             Producto producto = productoRepository.getById(id_producto);
-            Detalle detalle = DetalleService.generarDetalle(producto, carrito);
-            DetalleService.existenciaDeProductosEnCarrito(carrito, producto, detalle);
+            Detalle detalle = generarDetalle(producto, carrito);
+            existenciaDeProductosEnCarrito(carrito, producto, detalle);
             return detalle;
         }
         return null;

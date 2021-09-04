@@ -30,8 +30,8 @@ public class Producto {
     @Size(min = 2, message = "El nombre debe tener 2 caracteres como minimo")
     private String nombre;
 
-    @Column(nullable = false, unique = true)
-    @NotBlank(message = "Debe inrgesar un nombre")
+    @Column(nullable = false, unique = false)
+    @NotBlank(message = "Debe inrgesar una descripcion") 
     @Size(min = 5, message = "El nombre debe tener 2 caracteres como minimo")
     private String descripcion;
 

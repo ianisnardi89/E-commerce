@@ -13,5 +13,6 @@ public interface ProductoRepository extends JpaRepository<Producto, Long> {
     List<Producto> findByNombreContaining(String nombre);
     List<Producto> findByPublicadoTrue();
     List<Producto> findByPublicadoFalse();
+    List<Producto> findByNombreStartingWith(String nombre);
 
 }

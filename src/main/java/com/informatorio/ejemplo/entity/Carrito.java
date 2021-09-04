@@ -67,7 +67,9 @@ public class Carrito {
     }
 
     public void addDetalle(Detalle detalle){this.getDetalle().add(detalle);}
-    public void removeDetalle(Detalle detalle){this.getDetalle().remove(detalle);}
+    public void removeDetalle(Detalle detalle){
+        this.getDetalle().remove(detalle);
+    }
     public void setEstado(Boolean estado){this.estado = estado;}
     public void setUsuario(Usuario usuario){this.usuario = usuario;}
     public void setOrigen(Origen origen){this.origen = origen;}

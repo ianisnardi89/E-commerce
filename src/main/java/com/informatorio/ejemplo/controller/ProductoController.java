@@ -39,10 +39,16 @@ public class ProductoController {
     }
 
     @PutMapping(value = "api/producto/{id_producto}")
-    public Producto modifProducto(@PathVariable("id_producto")Long id_producto, @RequestBody Producto producto_modif){
-        Producto producto = productoRepository.getById(id_producto);
-        return ProductoService.modificarDatosProducto(producto, producto_modif);
+    public Producto modifProducto(@PathVariable("id_producto")Long id_producto, @RequestBody Producto producto){
+        Producto prod = productoRepository.getById(id_producto);
+        prod.setNombre(producto.getNombre());
+        prod.setContenido(producto.getContenido());
+        prod.setPrecioUnitario(producto.getPrecioUnitario());
+        prod.setPublicado(producto.getPublicado());
+        prod.setDescripcion(producto.getDescripcion());
+        return productoRepository.save(prod);
     }
+    
 
     @DeleteMapping(value = "api/producto/{id_producto}")
     public void deleteProducto(@PathVariable("id_producto")Long id){
@@ -63,6 +69,11 @@ public class ProductoController {
     @GetMapping(value = "api/producto/noPublicado")
     public List<Producto> buscarProductosNoPublicados(){
         return productoRepository.findByPublicadoFalse();
+    }
+
+    @GetMapping(value = "api/producto/buscarComienzo")
+    public List<Producto> nombreComienzaCon(@RequestParam(value = "nombre") String nombre){
+        return productoRepository.findByNombreStartingWith(nombre);
     }
 
 
