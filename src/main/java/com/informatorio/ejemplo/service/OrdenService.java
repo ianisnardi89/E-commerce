@@ -57,7 +57,7 @@ public class OrdenService {
         return null;
     }
 
-    public static Orden cancelarOrden(Orden orden, Long id_usuario){
+    public static Orden tratarCancelarOrden(Orden orden, Long id_usuario){
         Usuario usuario = usuarioRepository.getById(id_usuario);
 
         if((usuario.getRol()==Rol.Vendedor) && (orden.getEstado()==Estado.Confirmada)){
@@ -68,7 +68,25 @@ public class OrdenService {
     }
 
 
-
+    public static Orden generarOrden(Orden orden, Long id_carrito){
+        Carrito carrito = carritoRepository.getById(id_carrito);
+        if(carrito.getEstado() && (carrito.getDetalle().size()>=1)){
+            orden.setCarritoId(id_carrito);
+            orden.setUsuario(carrito.getUsuario());
+            orden.setObservacion(orden.getObservacion());
+            Random random = new Random();
+            Long numero = carrito.getUsuario().getId()*carrito.getId()*random.nextInt();
+            orden.setNumero(numero);
+            List<Detalle> detallesCarrito = carrito.getDetalle();
+            for(Detalle d : detallesCarrito){
+                orden.addLinea(LineaService.crearLinea(d,orden));
+                ordenRepository.save(orden);
+            }
+            CarritoService.hacerCarritoComprado(carrito);
+            return ordenRepository.save(orden);
+        }
+        return null;
+    }
 
 
 

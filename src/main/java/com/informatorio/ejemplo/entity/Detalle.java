@@ -20,14 +20,14 @@ public class Detalle {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.REFRESH)
     @JoinColumn(name="producto", referencedColumnName = "id")
     private Producto producto;  
 
     @Column(nullable = false, updatable = true)
     private Integer cantidad;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
     private Carrito carrito;
 
     public Long getId() {return id;}

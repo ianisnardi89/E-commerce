@@ -4,7 +4,6 @@ import java.util.List;
 
 import com.informatorio.ejemplo.entity.Producto;
 import com.informatorio.ejemplo.repository.ProductoRepository;
-import com.informatorio.ejemplo.service.ProductoService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;

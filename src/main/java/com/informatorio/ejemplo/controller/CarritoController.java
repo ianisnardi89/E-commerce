@@ -11,7 +11,6 @@ import com.informatorio.ejemplo.repository.DetalleRepository;
 import com.informatorio.ejemplo.repository.ProductoRepository;
 import com.informatorio.ejemplo.repository.UsuarioRepository;
 import static com.informatorio.ejemplo.service.CarritoService.nuevo_carrito;
-import static com.informatorio.ejemplo.service.CarritoService.evaluarCerrarCarrito;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -86,7 +85,7 @@ public class CarritoController {
             for(Detalle d : detallesDelCarrito){
                 if(d.getProducto().getId().equals(producto.getId())){
                     carrito.removeDetalle(d);
-                    detalleRepository.save(d);
+                    detalleRepository.delete(d);
                     return d;
                 }
             }

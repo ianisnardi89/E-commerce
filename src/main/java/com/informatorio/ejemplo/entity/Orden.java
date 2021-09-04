@@ -46,10 +46,14 @@ public class Orden {
     @Column(nullable = false)
     @Enumerated(value = EnumType.STRING)
     private Estado estado;
-
+    
     @Column(nullable = false, updatable = false)
     @Temporal(TemporalType.DATE)
     private Date fechaDeCreacion = CarritoService.creacion();
+
+    @Column(nullable = false)
+    @Enumerated(value = EnumType.STRING)
+    private Origen origen;
 
     @Column(nullable = false, length = 200)
     private String observacion;
@@ -62,6 +66,7 @@ public class Orden {
     public void setObservacion(String observacion){this.observacion = observacion;}
     public void setNumero(Long numero){this.numero = numero;}
     public void setEstado(Estado estado){this.estado = estado;}
+    public void setOrigen(Origen origen){this.origen = origen;}
 
     public String getObservacion(){return observacion;}
     public Long getId(){return id;}
@@ -72,6 +77,7 @@ public class Orden {
     public Usuario getUsuario(){return usuario;}
     public List<Linea> getLinea(){return linea;}
     public Long getCarritoId(){return carrito_id;}
+    public Origen getOrigen(){return origen;}
     public Date getFechaDeCreacion(){return fechaDeCreacion;}
     @Transient
     public Double getCostoTotal(){
