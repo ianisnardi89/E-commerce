@@ -29,6 +29,9 @@ public class Direccion {
     @Column(nullable = false, updatable = true)
     private String provincia;
 
+    @Column(nullable = false, updatable = true)
+    private String pais;
+
     @OneToOne(mappedBy = "direccion")
     private Usuario usuario;
 
@@ -57,6 +60,10 @@ public class Direccion {
 
     public Usuario getUsuario() {return usuario;}
     public void setUsuario(Usuario usuario) {this.usuario = usuario;}
+
+
+    public String getPais() {return pais;}
+    public void setPais(String pais) {this.pais = pais;}
 
     
 
