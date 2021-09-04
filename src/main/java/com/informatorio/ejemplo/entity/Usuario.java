@@ -2,6 +2,7 @@ package com.informatorio.ejemplo.entity;
 
 import java.util.Date;
 import java.util.List;
+import java.util.ArrayList;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -21,6 +22,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.informatorio.ejemplo.service.UsuarioService;
 
 
 @Entity
@@ -43,7 +45,7 @@ public class Usuario {
 
     @Column(nullable = false, updatable = false)
     @Temporal(TemporalType.DATE)
-    private Date fechaDeCreacion = usuarioService.creacion();
+    private Date fechaDeCreacion = UsuarioService.creacion();
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "direccion_id", referencedColumnName = "id")
@@ -77,7 +79,7 @@ public class Usuario {
 
     //DIRECCION
     public Direccion getDireccion(){return direccion;}
-    public Direccion setDireccion(Direccion direccion){this.direccion = direccion;}
+    public void setDireccion(Direccion direccion){this.direccion = direccion;}
 
     //CARRITOS
     public List<Carrito> getCarritos(){return carritos;}
@@ -94,11 +96,11 @@ public class Usuario {
 
     //EMAIL
     public String getEmail(){return email;}
-    public Void setEmail(String email){this.email = email;}
+    public void setEmail(String email){this.email = email;}
 
     //PASSWORD
     public String getPass(){return pass;}
-    public String setPass(String pass){this.pass = pass;}
+    public void setPass(String pass){this.pass = pass;}
 
 
 
