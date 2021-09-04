@@ -4,17 +4,16 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.swing.text.StyledEditorKit.BoldAction;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.informatorio.ejemplo.service.UsuarioService;
 
 @Entity
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler", })
@@ -41,7 +40,7 @@ public class Producto {
 
     @Column(nullable = false, updatable = false)
     @Temporal(TemporalType.DATE)
-    private Date fechaDeCreacion = usuarioService.creacion();
+    private Date fechaDeCreacion = UsuarioService.creacion();
 
     @Column(nullable = false)
     private Boolean publicado;

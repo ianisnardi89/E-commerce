@@ -3,8 +3,8 @@ package com.informatorio.ejemplo.entity;
 import java.beans.Transient;
 import java.util.Date;
 import java.util.List;
+import java.util.ArrayList;
 
-import javax.persistence.*;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -21,6 +21,7 @@ import javax.persistence.TemporalType;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.informatorio.ejemplo.service.CarritoService;
 
 @Entity
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler", })
@@ -62,7 +63,7 @@ public class Carrito {
         for (Detalle d: this.getDetalle()){
             total = d.getSubTotal() + total;
         }
-        return total
+        return total;
     }
 
     public void addDetalle(Detalle detalle){this.getDetalle().add(detalle);}

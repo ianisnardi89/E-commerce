@@ -20,6 +20,7 @@ import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.informatorio.ejemplo.service.CarritoService;
 
 
 @Entity
@@ -48,7 +49,7 @@ public class Orden {
 
     @Column(nullable = false, updatable = false)
     @Temporal(TemporalType.DATE)
-    private Date fechaDeCreacion = carritoService.creacion();
+    private Date fechaDeCreacion = CarritoService.creacion();
 
     @Column(nullable = false, length = 200)
     private String observacion;

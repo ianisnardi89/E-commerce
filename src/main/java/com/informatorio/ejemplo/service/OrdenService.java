@@ -7,7 +7,6 @@ import com.informatorio.ejemplo.entity.Carrito;
 import com.informatorio.ejemplo.entity.Detalle;
 import com.informatorio.ejemplo.entity.Estado;
 import com.informatorio.ejemplo.entity.Orden;
-import com.informatorio.ejemplo.entity.Producto;
 import com.informatorio.ejemplo.entity.Rol;
 import com.informatorio.ejemplo.entity.Usuario;
 import com.informatorio.ejemplo.repository.CarritoRepository;
@@ -39,7 +38,7 @@ public class OrdenService {
         List<Detalle> detallesCarrito = carrito.getDetalle();
 
         for(Detalle d : detallesCarrito){
-            orden.addLinea(crearLinea(d, orden));
+            orden.addLinea(LineaService.crearLinea(d, orden));
             ordenRepository.save(orden);
         }
     }
@@ -52,7 +51,7 @@ public class OrdenService {
             orden.setObservacion(orden.getObservacion());
             orden.setNumero(generarNumeroDeFactura(carrito));
             cargarLineas(carrito, orden);
-            hacerCarritoComprado(carrito);
+            CarritoService.hacerCarritoComprado(carrito);
             return ordenRepository.save(orden);
         }
         return null;
