@@ -31,7 +31,7 @@ public class CarritoController {
     @Autowired
     private UsuarioRepository usuarioRepository;
 
-    @Autowired
+    
 
     @PostMapping(value = "api/usuario/{id_usuario}/carrito")
     public Carrito crearCarrito(@PathVariable("id_usuario")Long id_usuario, @RequestBody Carrito carrito){

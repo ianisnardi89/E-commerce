@@ -21,15 +21,15 @@ public class UsuarioService {
     }
 
     public static Usuario modificarCredenciales(Usuario user, Usuario usuario){
-        user.setPass(usuario.getPass());
+        user.setPass(usuario.pass());
         user.setEmail(usuario.getEmail());
         return usuarioRepository.save(user);
     }
 
     public static Usuario modificarDatos(Usuario user, Usuario usuario){
         user.setNombre(usuario.getNombre());
-        usuario.setApellido(usuario.getApellido());
-        usuario.setDireccion(usuario.getDireccion());
+        user.setApellido(usuario.getApellido());
+        user.setDireccion(usuario.getDireccion());
         return usuarioRepository.save(user);
     }
 

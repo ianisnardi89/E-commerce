@@ -21,6 +21,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.informatorio.ejemplo.service.UsuarioService;
 
@@ -99,7 +100,10 @@ public class Usuario {
     public void setEmail(String email){this.email = email;}
 
     //PASSWORD
-    public String getPass(){return pass;}
+    
+    
+    public String pass(){return pass;}
+
     public void setPass(String pass){this.pass = pass;}
 
 

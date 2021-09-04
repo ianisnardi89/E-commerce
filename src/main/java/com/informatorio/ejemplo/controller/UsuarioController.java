@@ -5,7 +5,6 @@ import java.util.List;
 
 import com.informatorio.ejemplo.entity.Usuario;
 import com.informatorio.ejemplo.repository.UsuarioRepository;
-import com.informatorio.ejemplo.service.UsuarioService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -17,6 +16,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
 
 @RestController()
 public class UsuarioController {
@@ -33,6 +33,11 @@ public class UsuarioController {
         return usuarioRepository.findAll();
     }
 
+    @GetMapping(value = "api/usuario/{usuario_id}")
+    public Usuario getUsuario(@PathVariable("usuario_id")Long usuario_id){
+        return usuarioRepository.getById(usuario_id);
+    }
+
     @DeleteMapping(value = "api/usuario/{usuario_id}")
     public void deleteUsuario(@PathVariable("usuario_id") Long id){
         Usuario usuario = usuarioRepository.getById(id);
@@ -40,15 +45,20 @@ public class UsuarioController {
     }
 
     @PutMapping(value = "api/usuario/{usuario_id}")
-    public Usuario modifUsuario(@PathVariable("usuario_id") Long id, @RequestBody Usuario usuario){
-        Usuario user = usuarioRepository.getById(id);
-        return UsuarioService.modificarDatos(user, usuario);
+    public Usuario modifUsuario(@PathVariable("usuario_id") Long usuario_id, @RequestBody Usuario usuario){
+        Usuario user = usuarioRepository.getById(usuario_id);
+        user.setNombre(usuario.getNombre());
+        user.setApellido(usuario.getApellido());
+        user.setDireccion(usuario.getDireccion());
+        return usuarioRepository.save(user);
     }
 
     @PutMapping(value = "api/usuario/{usuario_id}/credencial")
     public Usuario modifUsuarioCredenciales(@PathVariable("usuario_id") Long id, @RequestBody Usuario usuario){
         Usuario user = usuarioRepository.getById(id);
-        return UsuarioService.modificarCredenciales(user, usuario);
+        user.setPass(usuario.pass());
+        user.setEmail(usuario.getEmail());
+        return usuarioRepository.save(user);
     }
 
     @GetMapping(value = "api/usuario/direccion")
