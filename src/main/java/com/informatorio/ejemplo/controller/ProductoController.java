@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.informatorio.ejemplo.entity.Producto;
 import com.informatorio.ejemplo.repository.ProductoRepository;
+import com.informatorio.ejemplo.service.ProductoService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -40,7 +41,7 @@ public class ProductoController {
     @PutMapping(value = "api/producto/{id_producto}")
     public Producto modifProducto(@PathVariable("id_producto")Long id_producto, @RequestBody Producto producto_modif){
         Producto producto = productoRepository.getById(id_producto);
-        return modificarDatosProducto(producto, producto_modif);
+        return ProductoService.modificarDatosProducto(producto, producto_modif);
     }
 
     @DeleteMapping(value = "api/producto/{id_producto}")

@@ -4,9 +4,9 @@ import java.util.List;
 
 import com.informatorio.ejemplo.entity.Orden;
 import com.informatorio.ejemplo.entity.Usuario;
-import com.informatorio.ejemplo.repository.CarritoRepository;
 import com.informatorio.ejemplo.repository.OrdenRepository;
 import com.informatorio.ejemplo.repository.UsuarioRepository;
+import com.informatorio.ejemplo.service.OrdenService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -22,8 +22,6 @@ public class OrdenController {
     @Autowired
     private OrdenRepository ordenRepository;
 
-    @Autowired
-    private CarritoRepository carritoRepository;
 
     @Autowired
     private UsuarioRepository usuarioRepository;
@@ -40,14 +38,14 @@ public class OrdenController {
 
     @PostMapping(value = "api/orden/{id_carrito}")
     public Orden createOrden(@PathVariable("id_carrito")Long id_carrito, @RequestBody Orden orden){
-        tratarCreacionOrden(orden, id_carrito);
+        OrdenService.tratarCreacionOrden(orden, id_carrito);
         return null;
     }
 
     @PutMapping(value = "api/usuario/{id_usuario/orden/{id_carrito}/close")
     public Orden cancelarOrden(@PathVariable("id_carrito")Long id_carrito, @PathVariable("id_usuario")Long id_usuario){
         Orden orden = ordenRepository.getById(id_carrito);
-        tratarCancelarOrden(orden, id_usuario);
+        OrdenService.cancelarOrden(orden, id_usuario);
         return null;
     }
 

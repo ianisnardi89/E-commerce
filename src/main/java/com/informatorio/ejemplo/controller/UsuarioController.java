@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.informatorio.ejemplo.entity.Usuario;
 import com.informatorio.ejemplo.repository.UsuarioRepository;
+import com.informatorio.ejemplo.service.UsuarioService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -20,8 +21,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController()
 public class UsuarioController {
     
-    @Autowired
-    private DireccionRepository direccionRepository;
 
     @Autowired
     private UsuarioRepository usuarioRepository;
@@ -43,13 +42,13 @@ public class UsuarioController {
     @PutMapping(value = "api/usuario/{usuario_id}")
     public Usuario modifUsuario(@PathVariable("usuario_id") Long id, @RequestBody Usuario usuario){
         Usuario user = usuarioRepository.getById(id);
-        return modificarDatos(user, usuario);
+        return UsuarioService.modificarDatos(user, usuario);
     }
 
     @PutMapping(value = "api/usuario/{usuario_id}/credencial")
     public Usuario modifUsuarioCredenciales(@PathVariable("usuario_id") Long id, @RequestBody Usuario usuario){
         Usuario user = usuarioRepository.getById(id);
-        return modificarCredenciales(user, usuario);
+        return UsuarioService.modificarCredenciales(user, usuario);
     }
 
     @GetMapping(value = "api/usuario/direccion")

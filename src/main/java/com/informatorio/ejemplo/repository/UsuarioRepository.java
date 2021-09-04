@@ -14,6 +14,6 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
     Usuario getById(Long id);
     List<Usuario> getByDireccionCiudad(String ciudad);
     List<Usuario> getByFechaDeCreacionAfter(Date fecha);
-    List<Usuario> getByFechaDeCreacion(String ciudad);
+    List<Usuario> getByFechaDeCreacion(Date fecha);
     
 }
