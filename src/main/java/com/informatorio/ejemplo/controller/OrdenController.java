@@ -11,12 +11,14 @@ import com.informatorio.ejemplo.repository.OrdenRepository;
 import com.informatorio.ejemplo.repository.UsuarioRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import static com.informatorio.ejemplo.service.OrdenService.*;
@@ -51,6 +53,7 @@ public class OrdenController {
     }
 
     @PostMapping(value = "api/orden/{id_carrito}")
+    @ResponseStatus(HttpStatus.CREATED)
     public Orden createOrden(@PathVariable("id_carrito")Long id_carrito, @RequestBody Orden orden){
         Carrito carrito = carritoRepository.getById(id_carrito);
 
@@ -86,6 +89,7 @@ public class OrdenController {
     }
 
     @DeleteMapping(value = "api/orden/{id_orden}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void borrarOrden(@PathVariable("id_orden")Long id_orden){
         Orden orden = ordenRepository.getById(id_orden);
         ordenRepository.delete(orden);

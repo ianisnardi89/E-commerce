@@ -13,12 +13,14 @@ import com.informatorio.ejemplo.repository.UsuarioRepository;
 import static com.informatorio.ejemplo.service.CarritoService.nuevo_carrito;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.informatorio.ejemplo.entity.Usuario;
@@ -43,6 +45,7 @@ public class CarritoController {
 
 
     @PostMapping(value = "api/usuario/{id_usuario}/carrito")
+    @ResponseStatus(HttpStatus.CREATED)
     public Carrito crearCarrito(@PathVariable("id_usuario")Long id_usuario, @RequestBody Carrito carrito){
         Usuario user = usuarioRepository.getById(id_usuario);
         carrito.setUsuario(user);
@@ -72,6 +75,7 @@ public class CarritoController {
     }
 
     @DeleteMapping(value = "api/carrito/{id_carrito}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteCarrito(@PathVariable("id_carrito")Long id_carrito){
         carritoRepository.deleteById(id_carrito);
     }
@@ -100,21 +104,22 @@ public class CarritoController {
         if(carrito.getEstado()){
             Producto producto = productoRepository.getById(id_producto);
             Detalle detalle = new Detalle();
+            if(producto.getPublicado()){
+                detalle.setProducto(producto);
+                detalle.setCarrito(carrito);
+                
+                List<Detalle> detallesDelCarrito = carrito.getDetalle();
 
-            detalle.setProducto(producto);
-            detalle.setCarrito(carrito);
-            
-            List<Detalle> detallesDelCarrito = carrito.getDetalle();
-
-            for(Detalle d: detallesDelCarrito){
-                if(d.getProducto().equals(producto)){
-                    return d;
+                for(Detalle d: detallesDelCarrito){
+                    if(d.getProducto().equals(producto)){
+                        return d;
+                    }
                 }
+                carrito.addDetalle(detalle);
+                carritoRepository.save(carrito);
+                
+                return detalle;
             }
-            carrito.addDetalle(detalle);
-            carritoRepository.save(carrito);
-            
-            return detalle;
         }
         return null;
     }

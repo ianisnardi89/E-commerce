@@ -8,6 +8,7 @@ import com.informatorio.ejemplo.repository.UsuarioRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 
@@ -26,6 +28,7 @@ public class UsuarioController {
     private UsuarioRepository usuarioRepository;
 
     @PostMapping(value = "api/usuario")
+    @ResponseStatus(HttpStatus.CREATED)
     public Usuario crearUsuario (@RequestBody Usuario usuario){return usuarioRepository.save(usuario);}
 
     @GetMapping(value = "api/usuario")
@@ -39,6 +42,7 @@ public class UsuarioController {
     }
 
     @DeleteMapping(value = "api/usuario/{usuario_id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteUsuario(@PathVariable("usuario_id") Long id){
         Usuario usuario = usuarioRepository.getById(id);
         usuarioRepository.delete(usuario);
